@@ -139,6 +139,9 @@ class Cell
      */
     protected function detectType($value)
     {
+        if (CellTypeHelper::isFormulaString($value)) {
+            return self::TYPE_FORMULA;
+        }
         if (CellTypeHelper::isBoolean($value)) {
             return self::TYPE_BOOLEAN;
         }
@@ -156,6 +159,14 @@ class Cell
         }
 
         return self::TYPE_ERROR;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFormula()
+    {
+        return $this->type === self::TYPE_FORMULA;
     }
 
     /**

@@ -212,7 +212,9 @@ EOD;
         $cellXML = '<c r="' . $columnLetters . $rowIndexOneBased . '"';
         $cellXML .= ' s="' . $styleId . '"';
 
-        if ($cell->isString()) {
+        if ($cell->isFormula()) {
+            $cellXML .= '><f>' . substr($cell->getValue(), 1) . '</f><v></v></c>';
+        } elseif ($cell->isString()) {
             $cellXML .= $this->getCellXMLFragmentForNonEmptyString($cell->getValue());
         } elseif ($cell->isBoolean()) {
             $cellXML .= ' t="b"><v>' . (int) ($cell->getValue()) . '</v></c>';
